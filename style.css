@@ -3,9 +3,11 @@ body {
   margin: 0;
   overflow: hidden;
   image-rendering: pixelated;
+  display: block;
 }
 
 canvas {
   width: 100%;
+  background-color: aqua;
 }
 
