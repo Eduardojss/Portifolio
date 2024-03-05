@@ -2,25 +2,23 @@ import {resources} from './Resource.js';
 import { Sprite } from './Sprite.js';
 import { Vector2 } from './Vector2.js';
 
-const characterIdleSprite = new Sprite({
-    resource: resources.images.characterIdle,
-    frameSize: new Vector2(48,48),
-    hFrames: 4,
-    vFrames: 1,
-    frame: 0,
-});
+const canvas = document.querySelector("#port-canvas");
 
-const characterWalkSprite = new Sprite({
-    resource: resources.images.characterWalk,
-    frameSize: new Vector2(48,48),
-    hFrames: 4,
-    vFrames: 1,
-    frame: 0,
-});
+const ctx = canvas.getContext("2d");
 
-class DrawChar{
-    constructor(ctx){
-        this.ctx = ctx;
+export class DrawChar{
+    constructor(sprite, frameDelay){
+        this.sprite = sprite;
+        this.frameDelay = frameDelay;
+        this.frameCounter = this.sprite.vFrames * this.sprite.hFrames;  
+    }
+
+    update(){
+        this.frameCounter++;
+        if (this.frameCounter >= this.frameDelay) {
+            this.sprite.frame = (this.sprite.frame + 1) % 4;
+            this.frameCounter = 0;
+        }
     }
     drawChar(){
         const characterPos = new Vector2(48 * 2, 48 * 5);
@@ -30,13 +28,6 @@ class DrawChar{
         const charPosX = characterPos.x + charOffSet.x;
         const charPosY = characterPos.y + 1+ charOffSet.y;
         
-        characterWalkSprite.drawImage(this.ctx, charPosX, charPosY);
-    }
-        
-    update(){
-        setInterval(characterWalkSprite.frame = (characterWalkSprite.frame + 1) % 4, 1000);
+        this.sprite.drawImage(ctx, charPosX, charPosY);
     }
 }
-
-
-export default DrawChar;

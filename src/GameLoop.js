@@ -6,7 +6,7 @@ export class GameLoop {
 
         this.lastTime = 0;
         this.accumulatedTime = 0;
-        this.step = 1 / 60;
+        this.step = 1000 / 60;
 
         this.rafId = null;
         this.isRunning = false;
@@ -16,7 +16,7 @@ export class GameLoop {
         if(!this.isRunning)
             return;
 
-        let deltaTime = performance.now() - this.lastTime;
+        let deltaTime = timestamp - this.lastTime;
         this.lastTime = timestamp;
 
         this.accumulatedTime += deltaTime;
