@@ -6,7 +6,7 @@ export class GameLoop {
 
         this.lastTime = 0;
         this.accumulatedTime = 0;
-        this.step = 1000 / 60;
+        this.step = 1000 / 30;
 
         this.rafId = null;
         this.isRunning = false;

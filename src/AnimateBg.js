@@ -25,7 +25,14 @@ class Layer {
         if(this.x <= - this.width){
             this.x = 0;
         }
+    }
+    moveRight(){
         this.x = Math.floor(this.x - this.speed);
+    }
+    moveLeft(){
+        if(this.x <= 0){
+            this.x = Math.ceil(this.x + this.speed);
+        }
     }
     draw(){
         this.sprite.drawImage(ctx, this.x, 0);
