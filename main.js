@@ -7,7 +7,9 @@ import {
     background1Sprite,
     background2Sprite,
     background3Sprite,
-    background4Sprite
+    background4Sprite,
+    platformSprite,
+    floorSprite
 }  
 from './src/resources/BackgroundResources.js';
 
@@ -17,7 +19,8 @@ import {
 }
 from './src/resources/CharResources.js';
 import { Input, keys} from './src/Input.js';
-
+import { Platform, Floor } from './src/Platforms.js';
+import imageFloor from './src/floor/ground1.png';
 const canvas = document.querySelector("#port-canvas");
 
 const ctx = canvas.getContext("2d");
@@ -29,19 +32,24 @@ const bgLayer3 = new Layer(background3Sprite, 0.5);
 const bgLayer4 = new Layer(background4Sprite, 0.8);
 
 const bgLayers = [bgLayer0, bgLayer1, bgLayer2, bgLayer3, bgLayer4];
+
 const char = new DrawChar(characterWalkSprite, 5); ///(charSprite, delay in frames)
 
-const input = new Input();
+const platform = new Platform(platformSprite ,300, Math.floor(Math.random() * (250 - 100 + 1)) + 100, 100, 100, 0.8);
 
-const gravity = 1;
+const floorImage = new Image();
+floorImage.src = imageFloor;
+
+const floor = new Floor(floorImage, 0, 313, 1600, 32, 0.8);
+
 addEventListener("keydown", (event) => {
     if (event.code === "KeyW") {
         keys.UP.pressed = true;
-    } else if (event.code === "KeyD") {
+    }
+    if (event.code === "KeyD") {
         keys.RIGHT.pressed = true;
-    } else if (event.code === "KeyS") {
-        keys.DOWN.pressed = true;
-    } else if (event.code === "KeyA") {
+    }
+    if (event.code === "KeyA") {
         keys.LEFT.pressed = true;
     }
 
@@ -50,67 +58,73 @@ addEventListener("keydown", (event) => {
 addEventListener("keyup", (event) => {
     if (event.code === "KeyW") {
         keys.UP.pressed = false;
-    } else if (event.code === "KeyA") {
+    }
+    if (event.code === "KeyD") {
         keys.RIGHT.pressed = false;
-    } else if (event.code === "KeyS") {
-        keys.DOWN.pressed = false;
-    } else if (event.code === "KeyD") {
+    }
+    if (event.code === "KeyA") {
         keys.LEFT.pressed = false;
     }
 });
 
-
+let scrollOffSet = 0;
 const update = () => {
-    ctx.clearRect(0, 0, 576, 324);
     bgLayers.forEach(layer => {
         layer.update();
     })
-    
-    if(char.characterPos.y + 48 + char.velocity.y <= canvas.height - 10){
-        char.velocity.y += gravity;
-    }else{
-        char.velocity.y = 0;
+    char.update();
+
+    if (keys.UP.pressed == true) {
+        char.velocity.y = 2;
+    }
+     else if(keys.RIGHT.pressed && char.characterPos.x < 200 && scrollOffSet === 0){
+        char.velocity.x = 2;
+        char.sprite = characterWalkSprite;
+        char.animate();
+    }
+    else if ((keys.LEFT.pressed && char.characterPos.x > 100) ||(keys.LEFT.pressed && scrollOffSet === 0 && char.characterPos.x > 0)){
+        char.velocity.x = -2;
+        char.sprite = characterWalkSprite;
+        char.animate();
+    }else {
+        char.velocity.x = 0;
+        if (keys.RIGHT.pressed == true) {
+            scrollOffSet += 2;
+            char.sprite = characterWalkSprite;
+            char.animate();
+            platform.position.x -= 2;
+            floor.position.x -= 2;
+        }else if(keys.LEFT.pressed && scrollOffSet > 0){
+            scrollOffSet -= 2;
+            char.sprite = characterWalkSprite;
+            char.animate();
+            platform.position.x += 2;
+            floor.position.x += 2;
+        }
+        if(char.characterPos.x === 0){
+            char.sprite = characterIdleSprite;
+        }
     }
 
-    // if (keys.UP.pressed == true && char.characterPos.y  == 100) {
-    //     char.velocity.y = -15; 
-    // }else {char.velocity.y = 0}
-
-    
-    // if (keys.RIGHT.pressed == true) {
-    //     if(char.characterPos.x <= 100){
-    //         bgLayers.forEach(layer => {
-    //             layer.moveRight();
-    //         })
-    //     }else{
-    //         char.velocity.x += 5;
-    //     }
-    // } else char.velocity.x = 0;
-
-
-    // if (keys.LEFT.pressed == true && char.characterPos.x != 237) {
-    //     // if (char.characterPos.x <= 237){
-    //     //     char.characterPos.x -= 5;
-    //     // }else if (char.characterPos.x > 237){
-    //     //     bgLayers.forEach(layer => {
-    //     //         layer.moveLeft();
-    //     //     })
-    //     // }
-    // }
-
-    char.update();
+    platform.update();
 }
 
 const draw = () => {
-    ctx.clearRect(0, 0, 576, 324);
     bgLayers.forEach(layer => {
         layer.draw();
     })
-
+    platform.draw();
+    floor.draw();
     char.drawChar();
-    requestAnimationFrame(draw);
 }   
 
+function animate(){
+    update();
+    draw();
+    requestAnimationFrame(animate);
+}
 
-const gameLoop = new GameLoop(update, draw); 
-gameLoop.start();
+animate();
+
+// const gameLoop = new GameLoop(update, draw); 
+// gameLoop.start();

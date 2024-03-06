@@ -18,6 +18,12 @@
             "scaleInDock": 2,
             "scaleInEditor": 3
         },
+        "IndustrialTile_05.tsx": {
+            "scaleInEditor": 1
+        },
+        "basics.tsx": {
+            "scaleInEditor": 1
+        },
         "factoriFloor.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
@@ -29,21 +35,27 @@
             "scaleInEditor": 4
         }
     },
-    "last.imagePath": "/home/eduardo/Downloads/Action Pack - CITY/Assets",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
+    "last.exportedFilePath": "/home/eduardo/Portifolio/tiles",
+    "last.imagePath": "/home/eduardo/Portifolio/tiles",
+    "map.lastUsedExportFilter": "Ficheiros CSV (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
+    "map.width": 50,
     "openFiles": [
         "Assets_City.tsx"
     ],
     "project": "sem título.tiled-project",
     "recentFiles": [
+        "IndustrialTile_05.tsx",
+        "basics.tsx",
         "Assets_City.tsx",
         "factoriFloor.tsx",
         "mapTiles.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 16,
-        "width": 16
+        "height": 32,
+        "width": 32
     }
 }

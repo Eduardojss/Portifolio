@@ -25,6 +25,7 @@ class Layer {
         if(this.x <= - this.width){
             this.x = 0;
         }
+        this.x = Math.floor(this.x - this.speed);
     }
     moveRight(){
         this.x = Math.floor(this.x - this.speed);

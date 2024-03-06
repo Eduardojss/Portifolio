@@ -22,6 +22,15 @@ const background4Sprite = new Sprite({
     resource: resources.images.background_4,
     frameSize: new Vector2(576,324),
 });
+const floorSprite = new Sprite({
+    resource: resources.images.floor,
+    frameSize: new Vector2(1600,32),
+});
+
+const platformSprite = new Sprite({
+    resource: resources.images.platforms,
+    frameSize: new Vector2(32,32),
+});
 
 export { 
     background0Sprite,
@@ -29,4 +38,6 @@ export {
     background2Sprite,
     background3Sprite,
     background4Sprite,
+    floorSprite,
+    platformSprite
 };
