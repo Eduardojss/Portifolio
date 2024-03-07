@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "ground1",
     "expandedProjectPaths": [
         "."
     ],
@@ -19,15 +19,25 @@
             "scaleInEditor": 3
         },
         "IndustrialTile_05.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "basics.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "factoriFloor.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "ground1": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -16,
+                "y": 394
+            }
         },
         "mapTiles.tsx": {
             "dynamicWrapping": true,
@@ -43,13 +53,15 @@
     "map.tileWidth": 32,
     "map.width": 50,
     "openFiles": [
-        "Assets_City.tsx"
+        "Assets_City.tsx",
+        "ground1"
     ],
     "project": "sem título.tiled-project",
     "recentFiles": [
+        "Assets_City.tsx",
+        "ground1",
         "IndustrialTile_05.tsx",
         "basics.tsx",
-        "Assets_City.tsx",
         "factoriFloor.tsx",
         "mapTiles.tsx"
     ],

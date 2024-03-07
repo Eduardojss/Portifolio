@@ -75,7 +75,7 @@ const update = () => {
     char.update();
 
     if (keys.UP.pressed == true) {
-        char.velocity.y = 2;
+        char.characterPos.y -= 8;
     }
      else if(keys.RIGHT.pressed && char.characterPos.x < 200 && scrollOffSet === 0){
         char.velocity.x = 2;
@@ -101,7 +101,7 @@ const update = () => {
             platform.position.x += 2;
             floor.position.x += 2;
         }
-        if(char.characterPos.x === 0){
+        else{
             char.sprite = characterIdleSprite;
         }
     }

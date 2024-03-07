@@ -30,7 +30,6 @@ export class DrawChar{
         if(this.characterPos.y + 48 + this.velocity.y <= canvas.height - 10){
             this.velocity.y += gravity;
         }else{
-            this.characterPos.y = canvas.height - 48 - 10;
             this.velocity.y = 0;
         }
     }
