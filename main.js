@@ -15,7 +15,8 @@ from './src/resources/BackgroundResources.js';
 
 import {
     characterIdleSprite,
-    characterWalkSprite
+    characterWalkSprite,
+    characterJumpSprite
 }
 from './src/resources/CharResources.js';
 import { Input, keys} from './src/Input.js';
@@ -33,7 +34,7 @@ const bgLayer4 = new Layer(background4Sprite, 0.8);
 
 const bgLayers = [bgLayer0, bgLayer1, bgLayer2, bgLayer3, bgLayer4];
 
-const char = new DrawChar(characterWalkSprite, 5); ///(charSprite, delay in frames)
+const char = new DrawChar(characterWalkSprite, 10); ///(charSprite, delay in frames)
 
 const platform = new Platform(platformSprite ,300, Math.floor(Math.random() * (250 - 100 + 1)) + 100, 100, 100, 0.8);
 
@@ -44,6 +45,7 @@ const floor = new Floor(floorImage, 0, 313, 1600, 32, 0.8);
 
 addEventListener("keydown", (event) => {
     if (event.code === "KeyW") {
+        char.jumping = true 
         keys.UP.pressed = true;
     }
     if (event.code === "KeyD") {
@@ -67,7 +69,6 @@ addEventListener("keyup", (event) => {
     }
 });
 
-let scrollOffSet = 0;
 const update = () => {
     bgLayers.forEach(layer => {
         layer.update();
@@ -75,35 +76,31 @@ const update = () => {
     char.update();
 
     if (keys.UP.pressed == true) {
-        char.characterPos.y -= 8;
+        char.characterPos.y -= 6;
+        char.sprite = characterJumpSprite
+        char.animate();
+        char.jumping = true 
+        if(keys.RIGHT.pressed && char.characterPos.x < 576 - 28){
+            char.velocity.x = 2;
+        }else if(keys.LEFT.pressed && char.characterPos.x > 0){
+            char.velocity.x = -2;
+        }else{
+            char.velocity.x = 0;
+        }
     }
-     else if(keys.RIGHT.pressed && char.characterPos.x < 200 && scrollOffSet === 0){
+     else if(keys.RIGHT.pressed && char.characterPos.x < 576 - 28){
         char.velocity.x = 2;
         char.sprite = characterWalkSprite;
         char.animate();
     }
-    else if ((keys.LEFT.pressed && char.characterPos.x > 100) ||(keys.LEFT.pressed && scrollOffSet === 0 && char.characterPos.x > 0)){
+    else if ((keys.LEFT.pressed && char.characterPos.x > 100) ||(keys.LEFT.pressed && char.characterPos.x > 0)){
         char.velocity.x = -2;
         char.sprite = characterWalkSprite;
         char.animate();
     }else {
         char.velocity.x = 0;
-        if (keys.RIGHT.pressed == true) {
-            scrollOffSet += 2;
-            char.sprite = characterWalkSprite;
-            char.animate();
-            platform.position.x -= 2;
-            floor.position.x -= 2;
-        }else if(keys.LEFT.pressed && scrollOffSet > 0){
-            scrollOffSet -= 2;
-            char.sprite = characterWalkSprite;
-            char.animate();
-            platform.position.x += 2;
-            floor.position.x += 2;
-        }
-        else{
-            char.sprite = characterIdleSprite;
-        }
+        char.sprite = characterIdleSprite;
+        char.animate(); 
     }
 
     platform.update();

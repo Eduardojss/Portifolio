@@ -7,9 +7,10 @@ class Resources {
             background_3: "/sprites/Background/4.png",
             background_4: "/sprites/Background/5.png",
             floor: "/sprites/ground1.png",
-            characterIdle: "/sprites/Character/Idle.png",
-            characterWalk: "/sprites/Character/Walk.png",
-            platforms : "/sprites/Tiles/IndustrialTile_02.png"
+            characterIdle: "/sprites/Character/idleMe.png",
+            characterWalk: "/sprites/Character/WalkMe.png",
+            platforms : "/sprites/Tiles/IndustrialTile_02.png",
+            characterJump: "/sprites/Character/Jump.png",
         };
 
         this.images = {};
