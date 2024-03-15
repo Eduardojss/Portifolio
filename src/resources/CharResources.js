@@ -25,4 +25,12 @@ const characterJumpSprite = new Sprite({
     frame: 0,
 });
 
-export {characterIdleSprite, characterWalkSprite, characterJumpSprite};
+const characterCrouchSprite = new Sprite({
+    resource: resources.images.characterCrouch,
+    frameSize: new Vector2(32,32),
+    hFrames: 1,
+    vFrames: 1,
+    frame: 0,
+});
+
+export {characterIdleSprite, characterWalkSprite, characterJumpSprite, characterCrouchSprite};

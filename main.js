@@ -16,7 +16,8 @@ from './src/resources/BackgroundResources.js';
 import {
     characterIdleSprite,
     characterWalkSprite,
-    characterJumpSprite
+    characterJumpSprite,
+    characterCrouchSprite
 }
 from './src/resources/CharResources.js';
 import { Input, keys} from './src/Input.js';
@@ -74,10 +75,13 @@ const update = () => {
         layer.update();
     })
     char.update();
+    if(char.characterPos.y <= canvas.height - 10){
+        char.jumping = false;
 
+    }
     if (keys.UP.pressed == true) {
-        char.characterPos.y -= 6;
-        char.sprite = characterJumpSprite
+        char.characterPos.y -= 8;
+        char.sprite = characterCrouchSprite
         char.animate();
         char.jumping = true 
         if(keys.RIGHT.pressed && char.characterPos.x < 576 - 28){

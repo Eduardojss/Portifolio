@@ -7,7 +7,7 @@ const canvas = document.querySelector("#port-canvas");
 
 const ctx = canvas.getContext("2d");
 
-const gravity = 0.2;
+const gravity = 0.3;
 export class DrawChar{
     constructor(sprite, frameDelay){
         this.sprite = sprite;
@@ -22,10 +22,9 @@ export class DrawChar{
             y: 0
         },
         this.idle = false;
-        this.jumping = false;
     }
 
-    update(){        
+    update(){ 
         this.characterPos.y += this.velocity.y;
         this.characterPos.x += this.velocity.x;
         if(this.characterPos.y + 48 + this.velocity.y <= canvas.height - 10){
